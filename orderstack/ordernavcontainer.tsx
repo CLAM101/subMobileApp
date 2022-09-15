@@ -7,7 +7,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import LoadAnimation from "../mainstack/loadanimation";
 import Home from "../mainstack/home";
-
+import Cart from "./cart";
+import Checkout from "./checkout";
+import RestaurantCard from "./restaurantcard";
+import MenuCard from "./menucard";
+import Rankings from "./rankings";
+import StartOrderHome from "./startorderhome";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -27,31 +32,42 @@ const OrderNavContainer: React.FunctionComponent<Props> = (props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <NavigationContainer independent={true} >
-    <Navigator initialRouteName="Home">
-      <Screen
-        name="StartOrderHome"
-        component={Home}
-      />
-      <Screen
-        name="StartOrder"
-        component={StartOrder}
-      />
-      <Screen
-        name="LoadAnimation"
-        component={LoadAnimation}
-      />
-      <Screen
-        name="LoadAnimation"
-        component={LoadAnimation}
-      />
-      <Screen
-        name="LoadAnimation"
-        component={LoadAnimation}
-      />
-    </Navigator>
-  </NavigationContainer>
-  )
+    <NavigationContainer independent={true}>
+      <Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="Home"
+      >
+        <Screen
+          name="StartOrderHome"
+          component={StartOrderHome}
+        />
+        <Screen
+          name="Cart"
+          component={Cart}
+        />
+        <Screen
+          name="Checkout"
+          component={Checkout}
+        />
+        <Screen
+          name="RestaurantCard"
+          component={RestaurantCard}
+        />
+        <Screen
+          name="MenuCard"
+          component={MenuCard}
+        />
+        <Screen
+          name="Rankings"
+          component={Rankings}
+        />
+        <Screen
+          name="LoadAnimation"
+          component={LoadAnimation}
+        />
+      </Navigator>
+    </NavigationContainer>
+  );
 };
 
 export default OrderNavContainer;

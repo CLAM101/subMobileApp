@@ -8,17 +8,13 @@ interface Props {
   navigation: NavigationStackProp;
 }
 
-const StartOrderHome: React.FunctionComponent<Props> = (props) => {
+const Settings: React.FunctionComponent<Props> = (props) => {
   const dispatch = useAppDispatch();
 
-  return (
-    <View style={style.container}>
-      <Text>Hello World</Text>
-    </View>
-  );
+  return <View style={style.container}></View>;
 };
 
-export default StartOrderHome;
+export default Settings;
 
 const style = StyleSheet.create({
   container: {

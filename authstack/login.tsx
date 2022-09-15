@@ -17,7 +17,9 @@ import {
   selectLoggedState
 } from "../slices/navSlice";
 
-interface Props {}
+interface Props {
+  navigation: NavigationStackProp;
+}
 
 const Login: React.FunctionComponent<Props> = (props) => {
   interface formState {
@@ -81,8 +83,7 @@ const Login: React.FunctionComponent<Props> = (props) => {
   }
 
   // handle press for login button
-  function handlePress(event) {
-    event.preventDefault();
+  function handlePress() {
     login();
   }
 
@@ -124,6 +125,12 @@ const Login: React.FunctionComponent<Props> = (props) => {
       >
         <Text style={style.buttonText}>Login</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={style.signupButton}
+        onPress={() => props.navigation.navigate("Signup")}
+      >
+        <Text style={{ color: "white" }}>Dont have an account?</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -159,6 +166,9 @@ const style = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: "#0F3D3E"
+  },
+  signupButton: {
+    top: 70
   },
   inputs: {
     borderWidth: 2,

@@ -33,18 +33,18 @@ const theme = {
 export default function AppWrapper() {
   return (
     <Provider store={store}>
-      <App/>
+      <App />
     </Provider>
   );
 }
 
-export  function App() {
+export function App() {
   const loggedState = useAppSelector(selectLoggedState);
   const dispatch = useAppDispatch();
 
   return (
     <PaperProvider theme={theme}>
-      <AuthNavContainer/>
+      {loggedState === true ? <MainNavContainer /> : <AuthNavContainer />}
     </PaperProvider>
   );
 }
