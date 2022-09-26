@@ -7,12 +7,16 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import LoadAnimation from "../mainstack/loadanimation";
 import Home from "../mainstack/home";
+<<<<<<< HEAD
 import Cart from "./cart";
 import Checkout from "./checkout";
 import RestaurantCard from "./restaurantcard";
 import MenuCard from "./menucard";
 import Rankings from "./rankings";
 import StartOrderHome from "./startorderhome";
+=======
+
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -32,6 +36,7 @@ const OrderNavContainer: React.FunctionComponent<Props> = (props) => {
   const dispatch = useAppDispatch();
 
   return (
+<<<<<<< HEAD
     <NavigationContainer independent={true}>
       <Navigator
         screenOptions={{ headerShown: false }}
@@ -68,6 +73,33 @@ const OrderNavContainer: React.FunctionComponent<Props> = (props) => {
       </Navigator>
     </NavigationContainer>
   );
+=======
+    <NavigationContainer independent={true} >
+    <Navigator initialRouteName="Home">
+      <Screen
+        name="StartOrderHome"
+        component={Home}
+      />
+      <Screen
+        name="StartOrder"
+        component={StartOrder}
+      />
+      <Screen
+        name="LoadAnimation"
+        component={LoadAnimation}
+      />
+      <Screen
+        name="LoadAnimation"
+        component={LoadAnimation}
+      />
+      <Screen
+        name="LoadAnimation"
+        component={LoadAnimation}
+      />
+    </Navigator>
+  </NavigationContainer>
+  )
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
 };
 
 export default OrderNavContainer;

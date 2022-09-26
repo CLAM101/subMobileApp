@@ -5,7 +5,11 @@ import {
   View,
   Text,
   TouchableOpacity,
+<<<<<<< HEAD
   TextInput,
+=======
+  TextInput
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
 } from "react-native";
 import { NavigationStackProp } from "react-navigation-stack";
 import axios from "axios";
@@ -14,6 +18,7 @@ import {
   setOrigin,
   selectOrigin,
   setLoggedState,
+<<<<<<< HEAD
   selectLoggedState,
 } from "../slices/navSlice";
 import makeRequest from "../generics/makerequest";
@@ -26,11 +31,21 @@ const Login: React.FunctionComponent<Props> = (props) => {
   const dispatch = useAppDispatch();
 
   interface formStateType {
+=======
+  selectLoggedState
+} from "../slices/navSlice";
+
+interface Props {}
+
+const Login: React.FunctionComponent<Props> = (props) => {
+  interface formState {
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
     username: string;
     email: string;
     password: string;
   }
 
+<<<<<<< HEAD
   interface reqDetails {
     method: string;
     data: {
@@ -88,6 +103,70 @@ const Login: React.FunctionComponent<Props> = (props) => {
     if (makeRequest(checkLogDetails) === true) {
       dispatch(setLoggedState(true));
     }
+=======
+  const loggedState = useAppSelector(selectLoggedState);
+
+  const dispatch = useAppDispatch();
+
+  const [formState, setFormState] = React.useState<formState>({
+    username: "",
+    email: "",
+    password: ""
+  });
+
+  function login() {
+    console.log("password", formState.password, "username", formState.username);
+
+    axios({
+      method: "POST",
+      data: {
+        username: formState.username,
+        // email: formState.email,
+        password: formState.password
+      },
+      withCredentials: true,
+      url: "http://10.0.2.2:3000/subscribers/login"
+    })
+      .then((res) => {
+        console.log(res);
+        dispatch(setLoggedState(true));
+
+        console.log("username", res.data.username);
+      })
+      .catch(function (error) {
+        console.log("error on login", error);
+      });
+  }
+
+  function checkLog() {
+    console.log("check log called");
+    axios({
+      method: "POST",
+      withCredentials: true,
+      url: "http://10.0.2.2:3000/subscribers/logStatusCheck"
+    })
+      .then((response) => {
+        console.log("response on checkLog driver", response.data);
+
+        if (response.data === true) {
+          dispatch(setLoggedState(true));
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log("error on checklog driver logged in", error);
+      });
+  }
+
+  // handle press for login button
+  function handlePress(event) {
+    event.preventDefault();
+    login();
+  }
+
+  React.useEffect(() => {
+    checkLog();
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
   }, []);
 
   return (
@@ -99,7 +178,11 @@ const Login: React.FunctionComponent<Props> = (props) => {
           onChangeText={(text: string) => {
             setFormState({
               ...formState,
+<<<<<<< HEAD
               username: text,
+=======
+              username: text
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
             });
           }}
           value={formState.username}
@@ -110,7 +193,11 @@ const Login: React.FunctionComponent<Props> = (props) => {
           onChangeText={(text: string) => {
             setFormState({
               ...formState,
+<<<<<<< HEAD
               password: text,
+=======
+              password: text
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
             });
           }}
           value={formState.password}
@@ -118,6 +205,7 @@ const Login: React.FunctionComponent<Props> = (props) => {
           placeholder="password"
         />
       </View>
+<<<<<<< HEAD
       <TouchableOpacity onPress={handlePress} style={style.button}>
         <Text style={style.buttonText}>Login</Text>
       </TouchableOpacity>
@@ -126,6 +214,13 @@ const Login: React.FunctionComponent<Props> = (props) => {
         onPress={() => props.navigation.navigate("Signup")}
       >
         <Text style={{ color: "white" }}>Dont have an account?</Text>
+=======
+      <TouchableOpacity
+        onPress={handlePress}
+        style={style.button}
+      >
+        <Text style={style.buttonText}>Login</Text>
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
       </TouchableOpacity>
     </View>
   );
@@ -139,7 +234,11 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#0F3D3E",
+<<<<<<< HEAD
     flexDirection: "column",
+=======
+    flexDirection: "column"
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
   },
   button: {
     alignItems: "center",
@@ -153,6 +252,7 @@ const style = StyleSheet.create({
 
     border: 5,
     borderColor: "black",
+<<<<<<< HEAD
     marginBottom: 15,
   },
   inputContainer: {
@@ -165,6 +265,17 @@ const style = StyleSheet.create({
   },
   signupButton: {
     top: 70,
+=======
+    marginBottom: 15
+  },
+  inputContainer: {
+    top: 60,
+    flex: 0.6
+  },
+  buttonText: {
+    fontSize: 20,
+    color: "#0F3D3E"
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
   },
   inputs: {
     borderWidth: 2,
@@ -175,12 +286,21 @@ const style = StyleSheet.create({
     textAlign: "center",
     color: "#0F3D3E",
     borderColor: "#0F3D3E",
+<<<<<<< HEAD
     flex: 0.1,
+=======
+    flex: 0.1
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
   },
   topText: {
     fontSize: 20,
     fontWeight: "bold",
     color: "#E2DCC8",
+<<<<<<< HEAD
     marginBottom: 20,
   },
+=======
+    marginBottom: 20
+  }
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
 });

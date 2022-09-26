@@ -11,7 +11,11 @@ import {
 import Login from "./authstack/login";
 
 import {
+<<<<<<< HEAD
   MD3LightTheme as DefaultTheme,
+=======
+   
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
   Provider as PaperProvider
 } from "react-native-paper";
 import { Provider } from "react-redux";
@@ -33,18 +37,31 @@ const theme = {
 export default function AppWrapper() {
   return (
     <Provider store={store}>
+<<<<<<< HEAD
       <App />
+=======
+      <App/>
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
     </Provider>
   );
 }
 
+<<<<<<< HEAD
 export function App() {
+=======
+export  function App() {
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
   const loggedState = useAppSelector(selectLoggedState);
   const dispatch = useAppDispatch();
 
   return (
     <PaperProvider theme={theme}>
+<<<<<<< HEAD
       {loggedState === true ? <MainNavContainer /> : <AuthNavContainer />}
+=======
+      {loggedState === true ? <MainNavContainer/> :
+      <AuthNavContainer/>}
+>>>>>>> 8465a4c8fbcb48c20ad13589e0784679920e0c53
     </PaperProvider>
   );
 }
