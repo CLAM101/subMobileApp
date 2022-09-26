@@ -5,7 +5,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TextInput
+  TextInput,
 } from "react-native";
 import { NavigationStackProp } from "react-navigation-stack";
 import axios from "axios";
@@ -14,81 +14,80 @@ import {
   setOrigin,
   selectOrigin,
   setLoggedState,
-  selectLoggedState
+  selectLoggedState,
 } from "../slices/navSlice";
+import makeRequest from "../generics/makerequest";
 
 interface Props {
   navigation: NavigationStackProp;
 }
 
 const Login: React.FunctionComponent<Props> = (props) => {
-  interface formState {
+  const dispatch = useAppDispatch();
+
+  interface formStateType {
     username: string;
     email: string;
     password: string;
   }
 
-  const loggedState = useAppSelector(selectLoggedState);
+  interface reqDetails {
+    method: string;
+    data: {
+      username: string | null;
+      email: string | null;
+      password: string | null;
+      addOrRemoveItem: string | null;
+    };
+    withCredentials: true;
+    reqType: string;
+    url: string;
+  }
 
-  const dispatch = useAppDispatch();
-
-  const [formState, setFormState] = React.useState<formState>({
+  const [formState, setFormState] = React.useState<formStateType>({
     username: "",
     email: "",
-    password: ""
+    password: "",
   });
 
-  function login() {
-    console.log("password", formState.password, "username", formState.username);
+  let loginDetails: reqDetails = {
+    method: "POST",
+    withCredentials: true,
+    data: {
+      username: formState.username,
+      email: formState.email,
+      password: formState.password,
+      addOrRemoveItem: null,
+    },
+    reqType: "login",
+    url: "http://10.0.2.2:3000/subscribers/",
+  };
 
-    axios({
-      method: "POST",
-      data: {
-        username: formState.username,
-        // email: formState.email,
-        password: formState.password
-      },
-      withCredentials: true,
-      url: "http://10.0.2.2:3000/subscribers/login"
-    })
-      .then((res) => {
-        console.log(res);
-        dispatch(setLoggedState(true));
-
-        console.log("username", res.data.username);
-      })
-      .catch(function (error) {
-        console.log("error on login", error);
-      });
-  }
-
-  function checkLog() {
-    console.log("check log called");
-    axios({
-      method: "POST",
-      withCredentials: true,
-      url: "http://10.0.2.2:3000/subscribers/logStatusCheck"
-    })
-      .then((response) => {
-        console.log("response on checkLog driver", response.data);
-
-        if (response.data === true) {
-          dispatch(setLoggedState(true));
-        } else {
-        }
-      })
-      .catch((error) => {
-        console.log("error on checklog driver logged in", error);
-      });
-  }
+  let checkLogDetails: reqDetails = {
+    method: "POST",
+    withCredentials: true,
+    data: {
+      username: null,
+      email: null,
+      password: null,
+      addOrRemoveItem: null,
+    },
+    reqType: "logStatusCheck",
+    url: "http://10.0.2.2:3000/subscribers/",
+  };
 
   // handle press for login button
   function handlePress() {
-    login();
+    if (makeRequest(loginDetails) === true) {
+      dispatch(setLoggedState(true));
+    }
   }
 
+  // checks logged in status on first render
   React.useEffect(() => {
-    checkLog();
+    if (makeRequest(checkLogDetails) === true) {
+      dispatch(setLoggedState(true));
+    }
   }, []);
 
   return (
@@ -100,7 +99,7 @@ const Login: React.FunctionComponent<Props> = (props) => {
           onChangeText={(text: string) => {
             setFormState({
               ...formState,
-              username: text
+              username: text,
             });
           }}
           value={formState.username}
@@ -111,7 +110,7 @@ const Login: React.FunctionComponent<Props> = (props) => {
           onChangeText={(text: string) => {
             setFormState({
               ...formState,
-              password: text
+              password: text,
             });
           }}
           value={formState.password}
@@ -119,10 +118,7 @@ const Login: React.FunctionComponent<Props> = (props) => {
           placeholder="password"
         />
       </View>
-      <TouchableOpacity
-        onPress={handlePress}
-        style={style.button}
-      >
+      <TouchableOpacity onPress={handlePress} style={style.button}>
         <Text style={style.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -143,7 +139,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#0F3D3E",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   button: {
     alignItems: "center",
@@ -157,18 +153,18 @@ const style = StyleSheet.create({
 
     border: 5,
     borderColor: "black",
-    marginBottom: 15
+    marginBottom: 15,
   },
   inputContainer: {
     top: 60,
-    flex: 0.6
+    flex: 0.6,
   },
   buttonText: {
     fontSize: 20,
-    color: "#0F3D3E"
+    color: "#0F3D3E",
   },
   signupButton: {
-    top: 70
+    top: 70,
   },
   inputs: {
     borderWidth: 2,
@@ -179,12 +175,12 @@ const style = StyleSheet.create({
     textAlign: "center",
     color: "#0F3D3E",
     borderColor: "#0F3D3E",
-    flex: 0.1
+    flex: 0.1,
   },
   topText: {
     fontSize: 20,
     fontWeight: "bold",
     color: "#E2DCC8",
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
 });

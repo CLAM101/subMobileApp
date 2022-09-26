@@ -17,7 +17,7 @@ import { useAppSelector, useAppDispatch } from "../hooks";
 
 const { Navigator, Screen } = createStackNavigator();
 
-const MainNavContainer: React.FunctionComponent = () => {
+const MainNavContainer: React.FunctionComponent = (props) => {
   const loggedState = useAppSelector(selectLoggedState);
 
   return (
@@ -25,35 +25,17 @@ const MainNavContainer: React.FunctionComponent = () => {
       <Navigator
         screenOptions={{
           header: (props) => <AppHeader {...props} />,
-          headerShown: loggedState
+          // headerShown: loggedState,
         }}
         initialRouteName="Home"
       >
-        <Screen
-          name="Home"
-          component={Home}
-        />
+        <Screen name="Home" component={Home} />
 
-        <Screen
-          name="OrderNavContainer"
-          component={OrderNavContainer}
-        />
-        <Screen
-          name="Profile"
-          component={Profile}
-        />
-        <Screen
-          name="Settings"
-          component={Settings}
-        />
-        <Screen
-          name="Welcome"
-          component={Welcome}
-        />
-        <Screen
-          name="LoadAnimation"
-          component={LoadAnimation}
-        />
+        <Screen name="OrderNavContainer" component={OrderNavContainer} />
+        <Screen name="Profile" component={Profile} />
+        <Screen name="Settings" component={Settings} />
+        <Screen name="Welcome" component={Welcome} />
+        <Screen name="LoadAnimation" component={LoadAnimation} />
       </Navigator>
     </NavigationContainer>
   );
